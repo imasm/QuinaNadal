@@ -1,0 +1,282 @@
+﻿<controls:MetroWindow x:Class="QuinaNadal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowTransitionsEnabled="False"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:QuinaNadal"
+        xmlns:viewmodels="clr-namespace:QuinaNadal.ViewModels"        
+        xmlns:converters="clr-namespace:QuinaNadal.Converters"
+        Title="QUINA NADAL" Height="800" Width="1200">    
+    <Window.Resources>
+        <Style x:Key="TitolBorder" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="{StaticResource HeaderBorder}" />
+            <Setter Property="BorderThickness" Value="8" />
+            <Setter Property="Background" Value="{StaticResource HeaderBackground}" />
+            <Setter Property="Padding" Value="0 10" />
+        </Style>
+        <Style x:Key="Titol" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="{StaticResource HeaderText}" />            
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextBlock.FontSize" Value="36" />
+            <Setter Property="TextBlock.FontWeight" Value="Bold" />
+        </Style>
+
+        <Storyboard x:Key="Blink">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0"
+                             To="1"
+                             RepeatBehavior="2x"
+                             AutoReverse="False"
+                             Duration="0:0:0.2"/>
+        </Storyboard>
+
+        <Style TargetType="{x:Type local:MyButton}">
+            <Setter Property="TextBlock.FontSize" Value="38"></Setter>
+            <Setter Property="TextBlock.FontWeight" Value="Bold" />
+            <Setter Property="Opacity" Value="1.0" />
+    
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Grid>
+                            <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Border x:Name="DisabledVisualElement"
+                                Background="{DynamicResource ControlsDisabledBrush}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <controls:ContentControlEx x:Name="PART_ContentPresenter"
+                                                   Margin="{TemplateBinding BorderThickness}"
+                                                   Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Content="{TemplateBinding Content}"
+                                                   ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.ContentCharacterCasing)}"
+                                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                   ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                                   RecognizesAccessKey="True"
+                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ButtonBorderBrushOnOver}" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource GrayBrush7}" />
+                            </Trigger>
+                            <!--<Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ButtonMouseOverBorderBrush}" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                            </Trigger>-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.7" />
+                                <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.3" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <!--<Setter Property="Background" Value="#E81123" />-->
+                </Trigger>
+                <DataTrigger Binding="{Binding Path=Marcat, RelativeSource={RelativeSource Self}}"
+                     Value="false">
+                    <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource ButtonForeground}"/>
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Marcat, RelativeSource={RelativeSource Self}}"
+                     Value="true">
+                    <Setter Property="Background" Value="{StaticResource ButtonSelectedBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource ButtonSelectedForeground}"/>
+                    <Setter Property="Opacity" Value="1"/>
+
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Name="blink" Storyboard="{StaticResource Blink}"> </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+
+                    <DataTrigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="blink" />
+                    </DataTrigger.ExitActions>
+
+   
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <converters:VisibilityHiddenConverter x:Key="VisibilityConverter" ShowOnFalse="True" />
+    </Window.Resources>
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Style="{StaticResource TitolBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Height="100" 
+                       HorizontalAlignment="Left" 
+                       Source="{Binding Logo}" />
+                <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource Titol}" Content="{Binding Titol1}"/>
+                <Label Grid.Column="1" Grid.Row ="1" Style="{StaticResource Titol}" Content="{Binding Titol2}"/>
+                <Image Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" 
+                       HorizontalAlignment="Left"
+                       Source="{Binding Logo}" />
+                <Image Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" 
+                       Source="./images/sync-error.png" 
+                       Width="32" Height="32"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right"
+                       Visibility="{Binding SyncOk, Converter={StaticResource VisibilityConverter}}"/>
+            </Grid >
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>                
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <local:MyButton Grid.Row="0" Grid.Column="0" Marcat="{Binding Taulell[1].Marcada, Mode=TwoWay}">1</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="1" Marcat="{Binding Taulell[2].Marcada, Mode=TwoWay}">2</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="2" Marcat="{Binding Taulell[3].Marcada, Mode=TwoWay}">3</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="3" Marcat="{Binding Taulell[4].Marcada, Mode=TwoWay}">4</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="4" Marcat="{Binding Taulell[5].Marcada, Mode=TwoWay}">5</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="5" Marcat="{Binding Taulell[6].Marcada, Mode=TwoWay}">6</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="6" Marcat="{Binding Taulell[7].Marcada, Mode=TwoWay}">7</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="7" Marcat="{Binding Taulell[8].Marcada, Mode=TwoWay}">8</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="8" Marcat="{Binding Taulell[9].Marcada, Mode=TwoWay}">9</local:MyButton>
+            <local:MyButton Grid.Row="0" Grid.Column="9" Marcat="{Binding Taulell[10].Marcada, Mode=TwoWay}">10</local:MyButton>
+
+            <local:MyButton Grid.Row="1" Grid.Column="0" Marcat="{Binding Taulell[11].Marcada, Mode=TwoWay}">11</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="1" Marcat="{Binding Taulell[12].Marcada, Mode=TwoWay}">12</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="2" Marcat="{Binding Taulell[13].Marcada, Mode=TwoWay}">13</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="3" Marcat="{Binding Taulell[14].Marcada, Mode=TwoWay}">14</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="4" Marcat="{Binding Taulell[15].Marcada, Mode=TwoWay}">15</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="5" Marcat="{Binding Taulell[16].Marcada, Mode=TwoWay}">16</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="6" Marcat="{Binding Taulell[17].Marcada, Mode=TwoWay}">17</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="7" Marcat="{Binding Taulell[18].Marcada, Mode=TwoWay}">18</local:MyButton>
+            <local:MyButton Grid.Row="1" Grid.Column="8" Marcat="{Binding Taulell[19].Marcada, Mode=TwoWay}">19</local:MyButton>            
+            <local:MyButton Grid.Row="1" Grid.Column="9" Marcat="{Binding Taulell[20].Marcada, Mode=TwoWay}">20</local:MyButton>
+
+            <local:MyButton Grid.Row="2" Grid.Column="0" Marcat="{Binding Taulell[21].Marcada, Mode=TwoWay}">21</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="1" Marcat="{Binding Taulell[22].Marcada, Mode=TwoWay}">22</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="2" Marcat="{Binding Taulell[23].Marcada, Mode=TwoWay}">23</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="3" Marcat="{Binding Taulell[24].Marcada, Mode=TwoWay}">24</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="4" Marcat="{Binding Taulell[25].Marcada, Mode=TwoWay}">25</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="5" Marcat="{Binding Taulell[26].Marcada, Mode=TwoWay}">26</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="6" Marcat="{Binding Taulell[27].Marcada, Mode=TwoWay}">27</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="7" Marcat="{Binding Taulell[28].Marcada, Mode=TwoWay}">28</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="8" Marcat="{Binding Taulell[29].Marcada, Mode=TwoWay}">29</local:MyButton>
+            <local:MyButton Grid.Row="2" Grid.Column="9" Marcat="{Binding Taulell[30].Marcada, Mode=TwoWay}">30</local:MyButton>
+
+            <local:MyButton Grid.Row="3" Grid.Column="0" Marcat="{Binding Taulell[31].Marcada, Mode=TwoWay}">31</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="1" Marcat="{Binding Taulell[32].Marcada, Mode=TwoWay}">32</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="2" Marcat="{Binding Taulell[33].Marcada, Mode=TwoWay}">33</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="3" Marcat="{Binding Taulell[34].Marcada, Mode=TwoWay}">34</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="4" Marcat="{Binding Taulell[35].Marcada, Mode=TwoWay}">35</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="5" Marcat="{Binding Taulell[36].Marcada, Mode=TwoWay}">36</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="6" Marcat="{Binding Taulell[37].Marcada, Mode=TwoWay}">37</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="7" Marcat="{Binding Taulell[38].Marcada, Mode=TwoWay}">38</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="8" Marcat="{Binding Taulell[39].Marcada, Mode=TwoWay}">39</local:MyButton>
+            <local:MyButton Grid.Row="3" Grid.Column="9" Marcat="{Binding Taulell[40].Marcada, Mode=TwoWay}">40</local:MyButton>
+
+            <local:MyButton Grid.Row="4" Grid.Column="0" Marcat="{Binding Taulell[41].Marcada, Mode=TwoWay}">41</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="1" Marcat="{Binding Taulell[42].Marcada, Mode=TwoWay}">42</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="2" Marcat="{Binding Taulell[43].Marcada, Mode=TwoWay}">43</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="3" Marcat="{Binding Taulell[44].Marcada, Mode=TwoWay}">44</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="4" Marcat="{Binding Taulell[45].Marcada, Mode=TwoWay}">45</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="5" Marcat="{Binding Taulell[46].Marcada, Mode=TwoWay}">46</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="6" Marcat="{Binding Taulell[47].Marcada, Mode=TwoWay}">47</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="7" Marcat="{Binding Taulell[48].Marcada, Mode=TwoWay}">48</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="8" Marcat="{Binding Taulell[49].Marcada, Mode=TwoWay}">49</local:MyButton>
+            <local:MyButton Grid.Row="4" Grid.Column="9" Marcat="{Binding Taulell[50].Marcada, Mode=TwoWay}">50</local:MyButton>
+
+            <local:MyButton Grid.Row="5" Grid.Column="0" Marcat="{Binding Taulell[51].Marcada, Mode=TwoWay}">51</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="1" Marcat="{Binding Taulell[52].Marcada, Mode=TwoWay}">52</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="2" Marcat="{Binding Taulell[53].Marcada, Mode=TwoWay}">53</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="3" Marcat="{Binding Taulell[54].Marcada, Mode=TwoWay}">54</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="4" Marcat="{Binding Taulell[55].Marcada, Mode=TwoWay}">55</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="5" Marcat="{Binding Taulell[56].Marcada, Mode=TwoWay}">56</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="6" Marcat="{Binding Taulell[57].Marcada, Mode=TwoWay}">57</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="7" Marcat="{Binding Taulell[58].Marcada, Mode=TwoWay}">58</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="8" Marcat="{Binding Taulell[59].Marcada, Mode=TwoWay}">59</local:MyButton>
+            <local:MyButton Grid.Row="5" Grid.Column="9" Marcat="{Binding Taulell[60].Marcada, Mode=TwoWay}">60</local:MyButton>
+
+            <local:MyButton Grid.Row="6" Grid.Column="0" Marcat="{Binding Taulell[61].Marcada, Mode=TwoWay}">61</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="1" Marcat="{Binding Taulell[62].Marcada, Mode=TwoWay}">62</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="2" Marcat="{Binding Taulell[63].Marcada, Mode=TwoWay}">63</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="3" Marcat="{Binding Taulell[64].Marcada, Mode=TwoWay}">64</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="4" Marcat="{Binding Taulell[65].Marcada, Mode=TwoWay}">65</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="5" Marcat="{Binding Taulell[66].Marcada, Mode=TwoWay}">66</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="6" Marcat="{Binding Taulell[67].Marcada, Mode=TwoWay}">67</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="7" Marcat="{Binding Taulell[68].Marcada, Mode=TwoWay}">68</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="8" Marcat="{Binding Taulell[69].Marcada, Mode=TwoWay}">69</local:MyButton>
+            <local:MyButton Grid.Row="6" Grid.Column="9" Marcat="{Binding Taulell[70].Marcada, Mode=TwoWay}">70</local:MyButton>
+
+            <local:MyButton Grid.Row="7" Grid.Column="0" Marcat="{Binding Taulell[71].Marcada, Mode=TwoWay}">71</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="1" Marcat="{Binding Taulell[72].Marcada, Mode=TwoWay}">72</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="2" Marcat="{Binding Taulell[73].Marcada, Mode=TwoWay}">73</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="3" Marcat="{Binding Taulell[74].Marcada, Mode=TwoWay}">74</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="4" Marcat="{Binding Taulell[75].Marcada, Mode=TwoWay}">75</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="5" Marcat="{Binding Taulell[76].Marcada, Mode=TwoWay}">76</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="6" Marcat="{Binding Taulell[77].Marcada, Mode=TwoWay}">77</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="7" Marcat="{Binding Taulell[78].Marcada, Mode=TwoWay}">78</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="8" Marcat="{Binding Taulell[79].Marcada, Mode=TwoWay}">79</local:MyButton>
+            <local:MyButton Grid.Row="7" Grid.Column="9" Marcat="{Binding Taulell[80].Marcada, Mode=TwoWay}">80</local:MyButton>
+
+            <local:MyButton Grid.Row="8" Grid.Column="0" Marcat="{Binding Taulell[81].Marcada, Mode=TwoWay}">81</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="1" Marcat="{Binding Taulell[82].Marcada, Mode=TwoWay}">82</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="2" Marcat="{Binding Taulell[83].Marcada, Mode=TwoWay}">83</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="3" Marcat="{Binding Taulell[84].Marcada, Mode=TwoWay}">84</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="4" Marcat="{Binding Taulell[85].Marcada, Mode=TwoWay}">85</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="5" Marcat="{Binding Taulell[86].Marcada, Mode=TwoWay}">86</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="6" Marcat="{Binding Taulell[87].Marcada, Mode=TwoWay}">87</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="7" Marcat="{Binding Taulell[88].Marcada, Mode=TwoWay}">88</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="8" Marcat="{Binding Taulell[89].Marcada, Mode=TwoWay}">89</local:MyButton>
+            <local:MyButton Grid.Row="8" Grid.Column="9" Marcat="{Binding Taulell[90].Marcada, Mode=TwoWay}">90</local:MyButton>
+        </Grid>
+    </DockPanel>
+</controls:MetroWindow>
+
+    
+    

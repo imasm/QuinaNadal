@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QuinaNadal.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServerSync" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ServerUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://localhost:44080</Value>
+    </Setting>
+    <Setting Name="ModeServer" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RefreshRate" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="RunDemo" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Entitat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">UNIÓ ESPORTIVA CASTELLFOLLIT</Value>
+    </Setting>
+    <Setting Name="Titol" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">QUINA NADAL</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

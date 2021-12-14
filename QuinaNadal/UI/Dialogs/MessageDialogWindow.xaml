@@ -1,0 +1,40 @@
+﻿<mah:MetroWindow
+        x:Class="QuinaNadal.UI.Dialogs.MessageDialogWindow"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuinaNadal.UI.Dialogs"
+        ShowCloseButton="False"
+        ShowMinButton="False"
+        ShowMaxRestoreButton="False"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="350" Width="800"
+        WindowTransitionsEnabled="False"
+        WindowStartupLocation="CenterOwner">
+    <mah:MetroWindow.Resources>
+        <Style x:Key="MessageLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource MetroLabel}">
+            <Setter Property="Background" Value="{StaticResource HeaderBackground}" />
+            <Setter Property="Foreground" Value="{StaticResource HeaderText}" />
+        </Style>
+    </mah:MetroWindow.Resources>
+    <mah:MetroWindow.DataContext>
+        <local:MessageDialogViewModel />
+    </mah:MetroWindow.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.ColumnSpan="2"
+               Style="{StaticResource MessageLabel}" Content="{Binding Message}" FontSize="58"  HorizontalContentAlignment="Center"  VerticalContentAlignment ="Center"/>
+        <Button Grid.Row="1" Grid.Column="0" Height="60" Click="Button_Click">Si</Button>
+        <Button Grid.Row="1" Grid.Column="1" Height="60" Click="Button_Click_1">No</Button>
+    </Grid>
+</mah:MetroWindow>
+
