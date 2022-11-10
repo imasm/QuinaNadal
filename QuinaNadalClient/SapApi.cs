@@ -17,14 +17,13 @@ namespace QuinaNadalClient
         public ApiClient(Uri serverUrl)
         {            
             _serverUrl = serverUrl;
-            _restClient = new RestClient();
-            _restClient.BaseUrl = _serverUrl;
+            _restClient = new RestClient(_serverUrl);
         }       
 
         public Taulell GetTaulell()
         {
             string url = $"api/quina/{Keys.KeyGet}";
-            var request = new RestRequest(url, Method.GET);
+            var request = new RestRequest(url, Method.Get);
 
 
             var response = _restClient.Execute<Taulell>(request);
@@ -46,7 +45,7 @@ namespace QuinaNadalClient
         public void SetTaulell(Taulell taulell)
         {
             string url = $"api/quina/{Keys.KeySet}";
-            var request = new RestRequest(url, Method.PUT);
+            var request = new RestRequest(url, Method.Put);
             request.AddJsonBody(taulell);
 
             var response = _restClient.Execute(request);
@@ -63,7 +62,7 @@ namespace QuinaNadalClient
             }
         }
         
-        private static void LogRequest(IRestClient restClient, IRestRequest request, IRestResponse response, long durationMs)
+        private static void LogRequest(RestClient restClient, RestRequest request, RestResponse response, long durationMs)
         {
             var requestToLog = new
             {

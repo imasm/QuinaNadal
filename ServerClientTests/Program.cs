@@ -1,9 +1,8 @@
 ﻿using QuinaNadalClient;
 using QuinaNadalServer.Models;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 
 namespace ClientTests
 {
@@ -12,15 +11,31 @@ namespace ClientTests
         const string ApiUrl = "http://localhost:44080";
         static void Main(string[] args)
         {
+            Random rnd = new Random();
+            var valorsMarcats = Enumerable.Range(1, 10).Select(_ => rnd.Next(90) + 1).Distinct().ToArray();
+            MarcaValors(valorsMarcats);
+            ComprovaTaulell(valorsMarcats);
+        }
+
+        private static void MarcaValors(int[] valors)
+        {
             Taulell taulell = new Taulell();
-            taulell.Marcats = new List<int> { 1, 10, 20 };
+            Console.WriteLine("Marca valors " + string.Join(",", valors.Select(x => x.ToString())));
+            taulell.Marcats = valors.ToList();
             ApiClient api = new ApiClient(new Uri(ApiUrl));
             api.SetTaulell(taulell);
-            taulell = api.GetTaulell();
+        }
 
-            Console.WriteLine(taulell.Marcats.Contains(1));
-            Console.WriteLine(taulell.Marcats.Contains(10));
-            Console.WriteLine(taulell.Marcats.Contains(20));
+        private static void ComprovaTaulell(int[] valors)
+        {
+            ApiClient api = new ApiClient(new Uri(ApiUrl));
+            Taulell taulell = api.GetTaulell();
+
+            foreach (var valor in valors)
+            {
+                bool trobat = taulell.Marcats.Contains(valor);
+                Console.WriteLine($"Comprova valor {valor} : " + (trobat ? "OK":  "ERR"));
+            }
         }
     }
 }

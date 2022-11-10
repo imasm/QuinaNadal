@@ -1,11 +1,8 @@
-﻿
-using System.Web.Http;
-using Owin;
+﻿using Owin;
 using QuinaNadalServer.Logging;
 using QuinaNadalServer.Services;
+using System.Web.Http;
 using Unity;
-using Unity.Injection;
-using Unity.Lifetime;
 using Unity.WebApi;
 
 namespace QuinaNadalServer
@@ -52,11 +49,6 @@ namespace QuinaNadalServer
             container.RegisterInstance<ITaulellService>(_taulellService);
             //container.RegisterType<ITaulellService, TaulellService>(new ContainerControlledLifetimeManager());
             config.DependencyResolver = new UnityDependencyResolver(container);
-        }
-
-    
+        }    
     }
-
-
-
 }
