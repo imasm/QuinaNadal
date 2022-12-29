@@ -70,19 +70,19 @@ namespace QuinaNadal.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("UNIÓ ESPORTIVA CASTELLFOLLIT")]
-        public string Entitat {
+        [global::System.Configuration.DefaultSettingValueAttribute("QUINA NADAL")]
+        public string Titol {
             get {
-                return ((string)(this["Entitat"]));
+                return ((string)(this["Titol"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("QUINA NADAL")]
-        public string Titol {
+        [global::System.Configuration.DefaultSettingValueAttribute("LA TEVA ENTITAT")]
+        public string Entitat {
             get {
-                return ((string)(this["Titol"]));
+                return ((string)(this["Entitat"]));
             }
         }
     }

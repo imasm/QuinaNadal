@@ -17,11 +17,11 @@
     <Setting Name="RunDemo" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Entitat" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">UNIÓ ESPORTIVA CASTELLFOLLIT</Value>
-    </Setting>
     <Setting Name="Titol" Type="System.String" Scope="Application">
       <Value Profile="(Default)">QUINA NADAL</Value>
+    </Setting>
+    <Setting Name="Entitat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LA TEVA ENTITAT</Value>
     </Setting>
   </Settings>
 </SettingsFile>
