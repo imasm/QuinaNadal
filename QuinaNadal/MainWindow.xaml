@@ -13,7 +13,7 @@
     <Window.Resources>
         <Style x:Key="TitolBorder" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="{StaticResource HeaderBorder}" />
-            <Setter Property="BorderThickness" Value="8" />
+            <Setter Property="BorderThickness" Value="2" />
             <Setter Property="Background" Value="{StaticResource HeaderBackground}" />
             <Setter Property="Padding" Value="0 10" />
         </Style>

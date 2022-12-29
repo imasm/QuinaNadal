@@ -12,7 +12,7 @@ namespace QuinaNadal.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -70,19 +70,19 @@ namespace QuinaNadal.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("UNIÓ ESPORTIVA CASTELLFOLLIT")]
-        public string Entitat {
+        [global::System.Configuration.DefaultSettingValueAttribute("QUINA NADAL")]
+        public string Titol {
             get {
-                return ((string)(this["Entitat"]));
+                return ((string)(this["Titol"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("QUINA NADAL")]
-        public string Titol {
+        [global::System.Configuration.DefaultSettingValueAttribute("LA TEVA ENTITAT")]
+        public string Entitat {
             get {
-                return ((string)(this["Titol"]));
+                return ((string)(this["Entitat"]));
             }
         }
     }
