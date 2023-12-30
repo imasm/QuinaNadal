@@ -12,7 +12,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="ButtonBackground" Color="White"/>
-    <SolidColorBrush x:Key="ButtonForeground" Color="#FF404040"/>
+    <SolidColorBrush x:Key="ButtonForeground" Color="#FFA0A0A0"/>
 
     <SolidColorBrush x:Key="ButtonSelectedBackground" Color="{StaticResource AccentColor}"/>
     <SolidColorBrush x:Key="ButtonSelectedForeground" Color="White"/>
